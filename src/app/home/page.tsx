@@ -62,7 +62,7 @@ export default function Home() {
           <section className=" w-11/12 md:w-10/12 mx-auto ">
             <section className=" flex items-center justify-between  ">
               <div className="flex">
-                <IoIosContact className="w-20 h-20 " />
+                <IoIosContact className=" text-[5rem] md:ml-[-1rem]" />
                 <div>
                   <h2 className="text-lg capitalize text-slate-500"><span className="text-slate-500 font-semibold">Nome : </span>{user.fullName}</h2>
                   <p className="text-sm "><span className="text-slate-500 font-semibold">Email : </span>{user.email}</p>
