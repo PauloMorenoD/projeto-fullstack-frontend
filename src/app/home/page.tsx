@@ -23,7 +23,7 @@ export default function Home() {
 
 
 
-  const { user, setUser,setUserId } = useContext(userContext)
+  const { user, setUser, setUserId } = useContext(userContext)
   const {
     openModal,
     setOpenModal,
@@ -34,7 +34,7 @@ export default function Home() {
     openModalDeleteContact,
     setOpenModalDeleteUser,
     setOpenModalEditUser,
-    
+
 
   } = useContext(contactsContext)
 
@@ -43,7 +43,7 @@ export default function Home() {
   const registerDate = new Date(user.registerDate).toLocaleString()
 
   const logout = () => {
-    
+
     localStorage.clear()
 
     setUser(null)
@@ -59,34 +59,35 @@ export default function Home() {
       </Header>
       <main className="bg-slate-900 height w-full h-full text-slate-600">
         <section className="border p-2 border-slate-600">
-          <section className=" flex items-center justify-between w-[95%] mx-auto md:w-10/12 ">
-            <div className="flex">
-
-              <IoIosContact className="w-20 h-20 " />
-              <div>
-                <h2 className="text-lg capitalize text-slate-500"><span className="text-slate-500 font-semibold">Nome : </span>{user.fullName}</h2>
-                <p className="text-sm "><span className="text-slate-500 font-semibold">Email : </span>{user.email}</p>
-                <p className="text-sm "><span className="text-slate-500 font-semibold">Telefone : </span> {user.phone}</p>
-                <p className="text-sm "><span className="text-slate-500 font-semibold">Data de registro : </span>{registerDate}</p>
+          <section className=" w-11/12 md:w-10/12 mx-auto ">
+            <section className=" flex items-center justify-between  ">
+              <div className="flex">
+                <IoIosContact className="w-20 h-20 " />
+                <div>
+                  <h2 className="text-lg capitalize text-slate-500"><span className="text-slate-500 font-semibold">Nome : </span>{user.fullName}</h2>
+                  <p className="text-sm "><span className="text-slate-500 font-semibold">Email : </span>{user.email}</p>
+                  <p className="text-sm "><span className="text-slate-500 font-semibold">Telefone : </span> {user.phone}</p>
+                  <p className="text-sm "><span className="text-slate-500 font-semibold">Data de registro : </span>{registerDate}</p>
+                </div>
               </div>
-            </div>
-            <div>
-              <BsPencil onClick={() => setOpenModalEditUser(!openModalEditUser)}  className="cursor-pointer"/>
-              <BsTrash className="mt-4 cursor-pointer" onClick={() => setOpenModalDeleteUser(!openModalDeleteContact)} />
-            </div>
+              <div>
+                <BsPencil onClick={() => setOpenModalEditUser(!openModalEditUser)} className="cursor-pointer" />
+                <BsTrash className="mt-4 cursor-pointer" onClick={() => setOpenModalDeleteUser(!openModalDeleteContact)} />
+              </div>
+            </section>
           </section>
         </section>
 
         <section>
-          <div className="flex justify-between mt-8 w-10/12 mx-auto ">
+          <div className="flex justify-between mt-8 w-11/12 mx-auto md:w-10/12 ">
             <h1 className="text-3xl  ">Contatos</h1>
             <button className="flex border-2 p-2 border-slate-600 rounded cursor-pointer" onClick={() => setOpenModal(true)}>Criar contato +</button>
           </div>
           <div className="w-full ">
             {contacts.length ? (
-              <ul className="bg-slate-700 w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
-                {contacts.map((elem)=>(
-                  <ContactCard key={elem.id+Math.random()} contact={elem}/> 
+              <ul className="bg-slate-700 w-11/12 md:w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
+                {contacts.map((elem) => (
+                  <ContactCard key={elem.id + Math.random()} contact={elem} />
                 ))}
               </ul>
             ) : (
