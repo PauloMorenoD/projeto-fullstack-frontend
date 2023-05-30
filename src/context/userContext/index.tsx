@@ -16,9 +16,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     const [user, setUser] = useState<IUserReturnedData | null>()
     const [userId, setUserId] = useState<number>(0)
 
-    const token = localStorage.getItem("@token")
     
-        useEffect(() => {
+    
+    useEffect(() => {
+        const token = localStorage.getItem("@token")
+            if (!token) return
             const getUser = async () => {
                 const userId = localStorage.getItem("@userId")
     
@@ -76,6 +78,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
     const editUser = async (data: IUserDataPartial) => {
 
+        const token = localStorage.getItem("@token")
+
+
         const id = localStorage.getItem("@userId")
 
         if (!id) return
@@ -96,6 +101,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
     const deleteUser = async () => {
         const id = localStorage.getItem("@userId")
+
+        const token = localStorage.getItem("@token")
+
         if (!id) return
         try {
 

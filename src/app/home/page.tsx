@@ -13,17 +13,20 @@ import { Modal } from "@/components/Modal"
 import { ModalCreateContact } from "@/components/ModalCreateContact"
 import { ModalEditUser } from "@/components/ModalUserEdit"
 import { ModalDeleteUser } from "@/components/ModalDeleteUser"
-import { ModalDeleteContact } from "@/components/ModalDeleteContact"
 import { ContactCard } from "@/components/ContactCard"
 import { ModalEditContact } from "@/components/ModalEditContact"
+import { api } from "@/services"
+import { IContactsReturnedData } from "@/context/contactsContext/interfaces"
 
 export default function Home() {
 
   const router = useRouter()
+  const token = localStorage.getItem("@token")
 
 
+  if (!token) return
 
-  const { user, setUser, setUserId } = useContext(userContext)
+  const { user, setUser } = useContext(userContext)
   const {
     openModal,
     setOpenModal,
@@ -34,9 +37,30 @@ export default function Home() {
     openModalDeleteContact,
     setOpenModalDeleteUser,
     setOpenModalEditUser,
+    setContacts
 
 
   } = useContext(contactsContext)
+  
+  useEffect(() => {
+    const getContacts = async () => {
+
+      api.defaults.headers.authorization = `Bearer ${token}`
+
+      const response = await api.get("/contacts")
+
+      const data = response.data
+      const id = localStorage.getItem("@userId")
+
+      if (!id) return
+
+      const userContacts = data.filter((elem: IContactsReturnedData) => elem.userId === +id)
+
+      setContacts(userContacts)
+    }
+
+    getContacts()
+  }, [token])
 
   if (!user) return
 
@@ -52,6 +76,8 @@ export default function Home() {
   }
 
 
+
+
   return (
     <>
       <Header>
@@ -60,7 +86,7 @@ export default function Home() {
       <main className="bg-slate-900 height w-full h-full text-slate-600">
         <section className="border p-2 border-slate-600">
           <section className=" w-11/12 md:w-10/12 mx-auto ">
-            <section className=" flex items-center justify-between  ">
+            <section className="flex items-center justify-between  ">
               <div className="flex">
                 <IoIosContact className=" text-[5rem] md:ml-[-1rem]" />
                 <div>
@@ -84,8 +110,8 @@ export default function Home() {
             <button className="flex border-2 p-2 border-slate-600 rounded cursor-pointer" onClick={() => setOpenModal(true)}>Criar contato +</button>
           </div>
           <div className="w-full ">
-            {contacts.length ? (
-              <ul className="bg-slate-700 w-11/12 md:w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
+            {contacts?.length ? (
+              <ul className="bg-slate-700 w-11/12 max-h-[35rem] overflow-x-scroll md:w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
                 {contacts.map((elem) => (
                   <ContactCard key={elem.id + Math.random()} contact={elem} />
                 ))}

@@ -3,14 +3,12 @@
 import { createContext, useEffect, useState } from "react";
 import { IContactsData, IContactsDataPartial, iContactsProviderProps, iContactsProviderValues, IContactsReturnedData } from "./interfaces";
 import { api } from "@/services";
-import { useRouter } from "next/navigation";
-import { IUserReturnedData } from "../userContext/interfaces";
 
 
 export const contactsContext = createContext({} as iContactsProviderValues)
 
 export const ContactsProvider = ({ children }: iContactsProviderProps) => {
-    const router = useRouter()
+    
     const [contacts, setContacts] = useState<IContactsReturnedData[]>([])
     const [AllContacts, setAllContacts] = useState<IContactsReturnedData[]>([])
     const [openModal, setOpenModal] = useState<boolean>(false)
@@ -19,32 +17,13 @@ export const ContactsProvider = ({ children }: iContactsProviderProps) => {
     const [openModalEditContact, setOpenModalEditContact] = useState<boolean>(false)
     const [openModalDeleteContact, setOpenModalDeleteContact] = useState<boolean>(false)
     const [contactId, setContactId] = useState<number>(0)
-
     
-    useEffect(() => {
+    
+    const getAllContacts = async () => {
         const token = localStorage.getItem("@token")
-        const getContacts = async () => {
-
-            api.defaults.headers.authorization = `Bearer ${token}`
-
-            const response = await api.get("/contacts")
-
-            const data = response.data
-            const id = localStorage.getItem("@userId")
-
-            if (!id) return
-
-            const userContacts = data.filter((elem: IContactsReturnedData) => elem.userId === +id)
-
-            setContacts(userContacts)
-        }
-
-        getContacts()
-    }, [])
-
-    const getAllContacts = async (): Promise<IContactsReturnedData[]> => {
-        const token = localStorage.getItem("@token")
-
+        
+        
+        
         api.defaults.headers.authorization = `Bearer ${token}`
 
         const response = await api.get("/contacts")
@@ -56,6 +35,7 @@ export const ContactsProvider = ({ children }: iContactsProviderProps) => {
 
     const createContact = async (data: IContactsData) => {
         const token = localStorage.getItem("@token")
+
         try {
             const id = localStorage.getItem("@userId")
 

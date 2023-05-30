@@ -25,8 +25,8 @@ export const ModalEditContact = () => {
             </div>
             <form action="" onSubmit={handleSubmit(editContact)}  className="mt-4 w-full flex flex-col justify-center gap-4">
                     <InputComponent placeholder="digite um email" type="text" labelContent="E-mail" name="email" register={register} />
-                    <InputComponent placeholder="digite o nome completo" type="text" labelContent="Nome completo" name="description" register={register} />
-                    <InputComponent placeholder="digite um telefone" type="text" labelContent="Telefone" name="description" register={register} />
+                    <InputComponent placeholder="digite o nome completo" type="text" labelContent="Nome completo" name="fullName" register={register} />
+                    <InputComponent placeholder="digite um telefone" type="text" labelContent="Telefone" name="phone" register={register} />
                 <button type="submit" className="font-bold bg-slate-600 w-10/12 rounded mx-auto p-2" >editar contato</button>
             </form>
         </div>
