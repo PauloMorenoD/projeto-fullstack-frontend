@@ -111,11 +111,11 @@ export default function Home() {
           </div>
           <div className="w-full ">
             {contacts?.length ? (
-              <ul className="bg-slate-700 w-11/12 max-h-[35rem] overflow-x-scroll md:w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
+              <ul className="bg-slate-700 w-11/12 max-h-[35rem] overflow-x-scroll scrollbar-none md:w-10/12 mx-auto min-h-[20rem] mt-4 rounded p-4 flex flex-col gap-4">
                 {contacts.map((elem) => (
                   <ContactCard key={elem.id + Math.random()} contact={elem} />
                 ))}
-              </ul>
+              </ul >
             ) : (
               <div className="bg-slate-700 w-10/12 mx-auto  mt-4 rounded p-4 flex flex-col gap-4 font-bold text-xl text-white">você ainda não possui nenhum contato, registre para poder vizualizá-los</div>
             )}

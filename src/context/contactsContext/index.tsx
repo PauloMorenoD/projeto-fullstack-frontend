@@ -8,7 +8,7 @@ import { api } from "@/services";
 export const contactsContext = createContext({} as iContactsProviderValues)
 
 export const ContactsProvider = ({ children }: iContactsProviderProps) => {
-    
+
     const [contacts, setContacts] = useState<IContactsReturnedData[]>([])
     const [AllContacts, setAllContacts] = useState<IContactsReturnedData[]>([])
     const [openModal, setOpenModal] = useState<boolean>(false)
@@ -17,13 +17,11 @@ export const ContactsProvider = ({ children }: iContactsProviderProps) => {
     const [openModalEditContact, setOpenModalEditContact] = useState<boolean>(false)
     const [openModalDeleteContact, setOpenModalDeleteContact] = useState<boolean>(false)
     const [contactId, setContactId] = useState<number>(0)
-    
-    
+
+
     const getAllContacts = async () => {
         const token = localStorage.getItem("@token")
-        
-        
-        
+
         api.defaults.headers.authorization = `Bearer ${token}`
 
         const response = await api.get("/contacts")
